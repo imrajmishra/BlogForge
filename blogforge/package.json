@@ -10,10 +10,10 @@
   },
   "dependencies": {
     "@nhost/nhost-js": "^4.7.2",
+    "joi": "^18.2.3",
     "next": "16.2.9",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "zod": "^4.4.3",
     "zustand": "^5.0.14"
   },
   "devDependencies": {
