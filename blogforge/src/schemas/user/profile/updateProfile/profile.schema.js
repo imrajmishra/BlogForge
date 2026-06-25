@@ -7,12 +7,12 @@ cutoffDate.setFullYear(cutoffDate.getFullYear() - 13);
 export const updateProfileSchema = Joi.object({
   // 1. Username: Enforce safe characters and length
   username: Joi.string()
-    .alphanum() // Letters and numbers only (prevents weird symbols or spaces)
+    .pattern(/^[a-zA-Z0-9_]+$/)
     .min(3)
     .max(30)
     .optional()
     .messages({
-      "string.alphanum": "Username must only contain letters and numbers.",
+      "string.pattern": "Username must only contain letters and numbers.",
       "string.min": "Username must be at least 3 characters long.",
     }),
 
@@ -29,6 +29,7 @@ export const updateProfileSchema = Joi.object({
     .max(cutoffDate) // Fails if the date makes the user younger than 13
     .optional()
     .messages({
+      "date.base": "Date of birth must be a valid date.",
       "date.format": "Date of birth must be in YYYY-MM-DD format.",
       "date.max": "You must be at least 13 years old to use this service.",
     }),
@@ -59,6 +60,9 @@ export const updateProfileSchema = Joi.object({
 })
   // CRITICAL: Ensure the user is actually sending at least one field to update!
   .min(1)
+  .options({
+    allowUnknown: false,
+  })
   .messages({
     "object.min": "You must provide at least one field to update.",
   });
