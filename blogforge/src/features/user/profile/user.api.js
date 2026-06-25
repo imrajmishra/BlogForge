@@ -2,8 +2,7 @@
 
 import { createNhostClient } from "@/lib/nhost";
 import { avatarUploadSchema } from "@/schemas/user/profile/updateAvatar/avatar.schema";
-import { updateProfileSchema } from "@/schemas/user/profile/updateProfile/Profile.schema";
-
+import  { updateProfileSchema } from "@/schemas/user/profile/updateProfile/profile.schema"
 
 /**
  * Server Action to handle BlogForge User Registration
@@ -63,34 +62,6 @@ export async function uploadAvatar() {
      return { success: true, message: "Avatar uploaded successfully!" };
 }
 
-
-// The GraphQL mutation to update the user's custom fields in the database
-// Adjust "update_users_by_pk" if your custom table is named something else, like "profiles"
-const UPDATE_PROFILE_MUTATION = `
-  mutation UpdateUserProfile(
-    $id: uuid!
-    $username: String
-    $name: String
-    $dob: date
-    $gender: String
-    $bio: String
-    $website: String
-  ) {
-    update_users_by_pk(
-      pk_columns: { id: $id },
-      _set: {
-        username: $username,
-        name: $name,
-        dob: $dob,
-        gender: $gender,
-        bio: $bio,
-        website: $website
-      }
-    ) {
-      id
-    }
-  }
-`;
 
 export async function uploadProfileDetails(prevState, formData) {
   // 1. Extract raw fields from incoming Form Data
